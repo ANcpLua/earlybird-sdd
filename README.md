@@ -214,7 +214,7 @@ npm run build
 ```bash
 npm install -D gh-pages
 npx gh-pages -d dist
-# Live at: https://your-username.github.io/sa-course
+# Live at: https://ancplua.github.io/EarlybirdNoHuman
 ```
 
 ## ✅ Feature Checklist
