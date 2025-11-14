@@ -25,8 +25,8 @@
 | Time Slot | Activity/Exercise                                                                | ExID                      | Category       | File |
 |:----------|:---------------------------------------------------------------------------------|:--------------------------|:---------------|:-----|
 | Session 1 | Homework Debrief: Heat Flow Calculator (ArchitecturalQuality09) and discussion on coupling. |                           |                | - |
-| Session 2 | **Exercise: An A-Interface of EarlyBird** (Design Workshop)                      | ArchitecturalQuality03    | GroupExercises | [ISearchProduct_Interface.md](ISearchProduct_Interface.md) |
-| Session 3 | **Class Group Exercise: ISearchProduct Specification** (Peer Review)             | ArchitecturalQuality04    | GroupExercises | [ISearchProduct_Review.md](ISearchProduct_Review.md) |
+| Session 2 | **Exercise: An A-Interface of EarlyBird** (Design Workshop)                      | ArchitecturalQuality03    | GroupExercises | [ISearchProduct_Interface.md](../EarlyBird/ISearchProduct_Interface.md) |
+| Session 3 | **Class Group Exercise: ISearchProduct Specification** (Peer Review)             | ArchitecturalQuality04    | GroupExercises | [ISearchProduct_Review.md](../EarlyBird/ISearchProduct_Review.md) |
 | Session 4 | **Class Group Exercise: Specification of a 0-Interface** (IList Design Workshop) | ArchitecturalQuality05    | GroupExercises | [IList_Interface.md](IList_Interface.md) |
 | Session 5 | **Class Group Exercise: List Interface Specification** (Peer Review)             | ArchitecturalQuality07    | GroupExercises | - |
 
@@ -42,8 +42,8 @@
 | Session 2  | **Class Group Exercise: Service-Based Architecture Development** (MateMate Case Study)        | MateMate02                   | GroupExercises | - |
 | Session 3  | **Exercise: Requirements Class-Diagram-Based Architecture Development** (Dis*Ease Case Study) | Dis\*Ease01                  | GroupExercises | - |
 | Session 4  | Wrap-up and Homework Assignment: Introduce application core and AI exercises.                 |                              |                | - |
-| *Homework* | **Home Exercise: A Very Small Application Core**                                              | Mars02                       | HomeExercises  | [Mars_Application_Core.md](Mars_Application_Core.md) |
-| *Homework* | **Home Exercise: A Bigger Application Core**                                                  | EarlyBird12                  | HomeExercises  | [EarlyBird_Application_Core.md](EarlyBird_Application_Core.md) |
+| *Homework* | **Home Exercise: A Very Small Application Core**                                              | Mars02                       | HomeExercises  | [Mars_Application_Core.md](../Mars/Mars_Application_Core.md) |
+| *Homework* | **Home Exercise: A Bigger Application Core**                                                  | EarlyBird12                  | HomeExercises  | [EarlyBird_Application_Core.md](../EarlyBird/EarlyBird_Application_Core.md) |
 | *Homework* | **Home Exercise: Using AI to Develop an Architecture - the Embedding Approach**               | ArchitectureDevelopment02    | HomeExercises  | - |
 
 ---
@@ -68,9 +68,9 @@
 
 **Supporting Materials:**
 - [Framework_Comparison.md](Framework_Comparison.md) - Better than C4 + arc42 combined
-- [EarlyBird_Domain_Model.md](EarlyBird_Domain_Model.md) - Complete domain model reference
-- [EarlyBird_Hexagonal_Architecture.md](EarlyBird_Hexagonal_Architecture.md) - Ports & Adapters pattern
-- [EarlyBird_Order_Workflow.md](EarlyBird_Order_Workflow.md) - Order submission workflow diagrams
+- [EarlyBird_Domain_Model.md](../EarlyBird/EarlyBird_Domain_Model.md) - Complete domain model reference
+- [EarlyBird_Hexagonal_Architecture.md](../EarlyBird/EarlyBird_Hexagonal_Architecture.md) - Ports & Adapters pattern
+- [EarlyBird_Order_Workflow.md](../EarlyBird/EarlyBird_Order_Workflow.md) - Order submission workflow diagrams
 
 ---
 

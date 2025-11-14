@@ -43,8 +43,8 @@
 | ExID | Exercise | Type | Page | File | Description |
 |------|----------|------|------|------|-------------|
 | **ArchitecturalQuality01** | Quality of Building Blocks | Group | 8 | - | Analyze internal quality (cohesion) of a building block using dependency matrix. |
-| **ArchitecturalQuality03** | An A-Interface of EarlyBird | Group | 71 | [ISearchProduct_Interface.md](ISearchProduct_Interface.md) | Specify `ISearchProduct` interface for EarlyBird's ProductManager component. |
-| **ArchitecturalQuality04** | ISearchProduct Specification | Group | 73 | [ISearchProduct_Review.md](ISearchProduct_Review.md) | Extend interface specification checklist and peer-review ArchitecturalQuality03. |
+| **ArchitecturalQuality03** | An A-Interface of EarlyBird | Group | 71 | [ISearchProduct_Interface.md](../EarlyBird/ISearchProduct_Interface.md) | Specify `ISearchProduct` interface for EarlyBird's ProductManager component. |
+| **ArchitecturalQuality04** | ISearchProduct Specification | Group | 73 | [ISearchProduct_Review.md](../EarlyBird/ISearchProduct_Review.md) | Extend interface specification checklist and peer-review ArchitecturalQuality03. |
 | **ArchitecturalQuality05** | Specification of a 0-Interface | Group | 74 | [IList_Interface.md](IList_Interface.md) | Design and document generic `IList` interface. |
 | **ArchitecturalQuality07** | List Interface Specification | Group | 75 | - | Peer-review partner group's `IList` specification from ArchitecturalQuality05. |
 | **ArchitecturalQuality08** | Climate Model | Group | 125 | [Climate_Model_Analysis.md](Climate_Model_Analysis.md) | Analyze climate model subsystems dependencies and identify architectural weaknesses. |
@@ -65,8 +65,8 @@
 | ExID | Exercise | Type | Page | File | Description |
 |------|----------|------|------|------|-------------|
 | **MateMate02** | Service-Based Architecture Development | Group | 34 | - | For MateMate chess app: establish subsystems, determine blood types (A/T/0), create allowed-to-use specification. |
-| **Mars02** | A Very Small Application Core | Home | 126-128 | [Mars_Application_Core.md](Mars_Application_Core.md) | Design 4-component architecture for Mars moons visibility calculator. |
-| **EarlyBird12** | A Bigger Application Core | Home | 129 | [EarlyBird_Application_Core.md](EarlyBird_Application_Core.md) | Design EarlyBird application core with change impact analysis. |
+| **Mars02** | A Very Small Application Core | Home | 126-128 | [Mars_Application_Core.md](../Mars/Mars_Application_Core.md) | Design 4-component architecture for Mars moons visibility calculator. |
+| **EarlyBird12** | A Bigger Application Core | Home | 129 | [EarlyBird_Application_Core.md](../EarlyBird/EarlyBird_Application_Core.md) | Design EarlyBird application core with change impact analysis. |
 | **Dis\*Ease01** | Requirements Class-Diagram-Based Architecture | Group | 50 | - | Design DIS*EASE hospital system architecture from domain class diagram (4-6 building blocks). |
 | **ArchitectureDevelopment02** | AI Architecture Development (Embedding Approach) | Home | 71 | - | Use vector embeddings to cluster EarlyBird requirements into architecture components. |
 
@@ -75,9 +75,9 @@
 - `2_Case Study Early Bird Requirements V150.pdf` (for EarlyBird12, ArchitectureDevelopment02)
 
 **Supporting Diagrams (EarlyBird):**
-- [EarlyBird_Domain_Model.md](EarlyBird_Domain_Model.md) - Complete domain model with aggregates and entities
-- [EarlyBird_Hexagonal_Architecture.md](EarlyBird_Hexagonal_Architecture.md) - Ports & Adapters pattern visualization
-- [EarlyBird_Order_Workflow.md](EarlyBird_Order_Workflow.md) - Order submission sequence diagrams
+- [EarlyBird_Domain_Model.md](../EarlyBird/EarlyBird_Domain_Model.md) - Complete domain model with aggregates and entities
+- [EarlyBird_Hexagonal_Architecture.md](../EarlyBird/EarlyBird_Hexagonal_Architecture.md) - Ports & Adapters pattern visualization
+- [EarlyBird_Order_Workflow.md](../EarlyBird/EarlyBird_Order_Workflow.md) - Order submission sequence diagrams
 
 ---
 
