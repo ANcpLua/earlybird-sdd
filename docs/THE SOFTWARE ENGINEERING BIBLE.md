@@ -547,19 +547,14 @@ Poor: Score < 0.5
 
 ```java
 public class OrderManager {
-    // Business logic
     public boolean ValidateOrder(Order order) { ... }
 
-    // Database access
     public void SaveToDatabase(Order order, Connection conn) { ... }
 
-    // Email sending
     public void SendConfirmation(Order order, SmtpConfig smtp) { ... }
 
-    // UI rendering
     public void RenderOrderPage(Order order, HttpResponse response) { ... }
 
-    // Logging
     public void LogOrder(Order order, Logger log) { ... }
 }
 ```
@@ -576,7 +571,6 @@ public class OrderManager {
 **Solution: Extract Each Concern**
 
 ```java
-// TYPE_A: Pure business logic
 public class OrderValidator {
     public ValidationResult Validate(Order order, Customer customer) {
         if (order.Total > customer.CreditLimit)
@@ -585,7 +579,6 @@ public class OrderValidator {
     }
 }
 
-// TYPE_T: Infrastructure adapters
 public class OrderRepository implements IOrderRepository {
     public void Save(Order order) { /* database logic */ }
 }
@@ -594,7 +587,6 @@ public class EmailNotifier implements INotificationService {
     public void Notify(Customer customer, String message) { /* email logic */ }
 }
 
-// TYPE_T: Orchestration (thin layer)
 public class OrderController {
     private OrderValidator validator;
     private IOrderRepository repository;

@@ -257,10 +257,8 @@ npx gh-pages -d dist
 The EBMS uses `localStorage` to persist blueprints:
 
 ```javascript
-// View saved blueprints (Browser Console - F12)
 JSON.parse(localStorage.getItem('blueprints'))
 
-// Clear all blueprints
 localStorage.clear()
 ```
 

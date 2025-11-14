@@ -673,7 +673,6 @@ OrderStatus.canTransitionTo(newStatus):
     return newStatus in [PACKED, CANCELED]
   if current == PACKED:
     return newStatus in [OUT_FOR_DELIVERY, CANCELED]
-  // etc.
 ```
 
 ### 5. Repository Pattern (implied)

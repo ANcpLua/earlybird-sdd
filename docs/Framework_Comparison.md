@@ -594,7 +594,6 @@ Before merging any architectural change, verify:
 EA6 encourages **automated enforcement** of architectural constraints:
 
 ```csharp
-// Example: Automated Allowed-to-Use Matrix Checker
 [Test]
 public void VerifyDependencyConstraints()
 {

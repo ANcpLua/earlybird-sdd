@@ -248,11 +248,9 @@ This extended checklist incorporates best practices from:
 **Example:**
 
 ```csharp
-// ✅ Won't compile - type safety
 productCatalog.FindByCode("COFFEE"); // Error: Cannot convert string to ProductCode
 productCatalog.FindByCode(customerNumber); // Error: Wrong type
 
-// ✅ Forces correct usage
 productCatalog.FindByCode(new ProductCode("COFFEE")); // Correct
 ```
 
@@ -365,7 +363,6 @@ IReadOnlyCollection<Product> Search(ProductSearchCriteria criteria);
 ```csharp
 public class ProductSearchCriteria
 {
-    // Existing properties...
     public SortOrder SortBy { get; } // SortBy.Price, SortBy.Name, SortBy.Calories
     public bool Ascending { get; }
 }

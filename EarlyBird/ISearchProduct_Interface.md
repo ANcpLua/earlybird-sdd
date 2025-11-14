@@ -48,161 +48,16 @@ using System.Collections.Generic;
 
 namespace EarlyBird.ApplicationCore.Interfaces
 {
-    /// <summary>
-    /// Provides product search and retrieval capabilities for the EarlyBird system.
-    ///
-    /// This interface abstracts product catalog access from implementation details
-    /// (database, cache, external API). It is a TYPE A interface - changes only
-    /// when business requirements for product search change.
-    ///
-    /// Thread Safety: Implementations MUST be thread-safe.
-    /// Immutability: All returned collections are immutable.
-    /// Null Safety: Methods never return null, return empty collections instead.
-    /// </summary>
     public interface ISearchProduct
     {
-        /// <summary>
-        /// Finds a product by its unique product code.
-        /// </summary>
-        /// <param name="productCode">The unique product code (e.g., "COFFEE", "TOAST")</param>
-        /// <returns>
-        /// The product with the specified code.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when productCode is null.
-        /// </exception>
-        /// <exception cref="ProductNotFoundException">
-        /// Thrown when no product exists with the specified code.
-        /// </exception>
-        /// <example>
-        /// Product coffee = productCatalog.FindByCode(new ProductCode("COFFEE"));
-        /// </example>
         Product FindByCode(ProductCode productCode);
-
-        /// <summary>
-        /// Searches for products matching ALL specified characteristics.
-        /// Uses AND logic: product must have ALL characteristics to match.
-        /// </summary>
-        /// <param name="characteristics">
-        /// Set of characteristics that products must have (e.g., VEGETARIAN, LOW_CALORIE).
-        /// Empty set returns all products.
-        /// </param>
-        /// <returns>
-        /// Immutable collection of products matching ALL characteristics.
-        /// Empty collection if no products match.
-        /// Never returns null.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when characteristics is null.
-        /// </exception>
-        /// <example>
-        /// // Find products that are BOTH vegetarian AND low-calorie
-        /// var characteristics = new HashSet<Characteristic> {
-        ///     Characteristic.VEGETARIAN,
-        ///     Characteristic.LOW_CALORIE
-        /// };
-        /// IReadOnlyCollection<Product> products = productCatalog.SearchByCharacteristics(characteristics);
-        /// </example>
         IReadOnlyCollection<Product> SearchByCharacteristics(ISet<Characteristic> characteristics);
-
-        /// <summary>
-        /// Searches for products matching the specified criteria with optional filters.
-        /// Allows combining multiple search criteria (characteristics, max price, max calories).
-        /// </summary>
-        /// <param name="criteria">
-        /// Search criteria containing optional filters:
-        /// - Characteristics (AND logic, all must match)
-        /// - MaxPricePerUnit (inclusive upper bound)
-        /// - MaxCalories (inclusive upper bound)
-        /// </param>
-        /// <returns>
-        /// Immutable collection of products matching ALL criteria.
-        /// Empty collection if no products match.
-        /// Never returns null.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when criteria is null.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// Thrown when criteria contains invalid values (e.g., negative price/calories).
-        /// </exception>
-        /// <example>
-        /// var criteria = new ProductSearchCriteria {
-        ///     Characteristics = new HashSet<Characteristic> { Characteristic.VEGETARIAN },
-        ///     MaxPricePerUnit = new Money(5.00m, Currency.EUR),
-        ///     MaxCalories = 300
-        /// };
-        /// IReadOnlyCollection<Product> products = productCatalog.Search(criteria);
-        /// // Returns: All vegetarian products ≤€5.00 AND ≤300 calories
-        /// </example>
         IReadOnlyCollection<Product> Search(ProductSearchCriteria criteria);
-
-        /// <summary>
-        /// Retrieves all available products in the catalog.
-        /// Use with caution: may return large collections for catalogs with many products.
-        /// </summary>
-        /// <returns>
-        /// Immutable collection of all products.
-        /// Empty collection if catalog is empty.
-        /// Never returns null.
-        /// </returns>
-        /// <example>
-        /// IReadOnlyCollection<Product> allProducts = productCatalog.GetAll();
-        /// Console.WriteLine($"Catalog contains {allProducts.Count} products");
-        /// </example>
         IReadOnlyCollection<Product> GetAll();
-
-        /// <summary>
-        /// Checks if a product with the specified code exists in the catalog.
-        /// Useful for validation before attempting to retrieve a product.
-        /// </summary>
-        /// <param name="productCode">The product code to check</param>
-        /// <returns>
-        /// true if product exists, false otherwise
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when productCode is null.
-        /// </exception>
-        /// <example>
-        /// var code = new ProductCode("COFFEE");
-        /// if (productCatalog.Exists(code)) {
-        ///     Product product = productCatalog.FindByCode(code);
-        /// } else {
-        ///     Console.WriteLine("Product not found");
-        /// }
-        /// </example>
         bool Exists(ProductCode productCode);
-
-        /// <summary>
-        /// Retrieves multiple products by their codes in a single operation.
-        /// More efficient than calling FindByCode multiple times.
-        /// </summary>
-        /// <param name="productCodes">
-        /// Collection of product codes to retrieve.
-        /// Empty collection returns empty result.
-        /// </param>
-        /// <returns>
-        /// Immutable collection of found products.
-        /// Products not found are silently skipped (no exception thrown).
-        /// Order is not guaranteed to match input order.
-        /// Never returns null.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when productCodes is null.
-        /// </exception>
-        /// <example>
-        /// var codes = new List<ProductCode> {
-        ///     new ProductCode("COFFEE"),
-        ///     new ProductCode("TOAST"),
-        ///     new ProductCode("INVALID") // Will be skipped
-        /// };
-        /// IReadOnlyCollection<Product> products = productCatalog.FindByCodes(codes);
-        /// // Returns: [Coffee, Toast] (Invalid is skipped, no exception)
-        /// </example>
         IReadOnlyCollection<Product> FindByCodes(IEnumerable<ProductCode> productCodes);
     }
-}
-```
+}```
 
 ---
 
@@ -213,29 +68,13 @@ namespace EarlyBird.ApplicationCore.Interfaces
 ```csharp
 namespace EarlyBird.Domain
 {
-    /// <summary>
-    /// Value object representing a unique product identifier.
-    /// Immutable and validated on construction.
-    /// </summary>
     public sealed class ProductCode : IEquatable<ProductCode>
     {
         public string Value { get; }
-
-        /// <summary>
-        /// Creates a new ProductCode.
-        /// </summary>
-        /// <param name="value">
-        /// The product code (e.g., "COFFEE", "TOAST").
-        /// Must be uppercase alphanumeric, 2-20 characters.
-        /// </param>
-        /// <exception cref="ArgumentException">
-        /// Thrown when value is null, empty, or invalid format.
-        /// </exception>
         public ProductCode(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Product code cannot be null or empty", nameof(value));
-
             if (!IsValidFormat(value))
                 throw new ArgumentException(
                     $"Product code '{value}' is invalid. Must be uppercase alphanumeric, 2-20 characters.",
@@ -284,40 +123,8 @@ namespace EarlyBird.Domain
 ```csharp
 namespace EarlyBird.Domain
 {
-    /// <summary>
-    /// Product characteristics used for filtering and search.
-    /// </summary>
     public enum Characteristic
-    {
-        /// <summary>Contains no meat, fish, or animal products</summary>
-        VEGETARIAN,
-
-        /// <summary>Contains no animal products (vegan)</summary>
-        VEGAN,
-
-        /// <summary>Contains no gluten (wheat, barley, rye)</summary>
-        GLUTEN_FREE,
-
-        /// <summary>Contains no lactose (milk products)</summary>
-        LACTOSE_FREE,
-
-        /// <summary>Less than 300 calories per unit</summary>
-        LOW_CALORIE,
-
-        /// <summary>Less than 5g sugar per unit</summary>
-        LOW_SUGAR,
-
-        /// <summary>High protein content (>15g per unit)</summary>
-        HIGH_PROTEIN,
-
-        /// <summary>Organic certification</summary>
-        ORGANIC,
-
-        /// <summary>Locally sourced (within 50km)</summary>
-        LOCAL
-    }
-}
-```
+    {```
 
 **Why enum instead of string?**
 
@@ -333,60 +140,21 @@ namespace EarlyBird.Domain
 ```csharp
 namespace EarlyBird.Domain
 {
-    /// <summary>
-    /// Immutable value object encapsulating product search criteria.
-    /// All criteria are optional (null = not filtered).
-    /// Multiple criteria combined with AND logic.
-    /// </summary>
     public sealed class ProductSearchCriteria
     {
-        /// <summary>
-        /// Products must have ALL these characteristics (AND logic).
-        /// null or empty = no characteristic filter.
-        /// </summary>
         public ISet<Characteristic> Characteristics { get; }
-
-        /// <summary>
-        /// Products must have pricePerUnit ≤ this value (inclusive).
-        /// null = no price filter.
-        /// </summary>
         public Money MaxPricePerUnit { get; }
-
-        /// <summary>
-        /// Products must have calories ≤ this value (inclusive).
-        /// null = no calorie filter.
-        /// </summary>
         public int? MaxCalories { get; }
-
-        /// <summary>
-        /// Creates search criteria with all filters.
-        /// </summary>
-        /// <param name="characteristics">
-        /// Characteristics filter (null = no filter).
-        /// Defensive copy created to ensure immutability.
-        /// </param>
-        /// <param name="maxPricePerUnit">
-        /// Maximum price filter (null = no filter).
-        /// </param>
-        /// <param name="maxCalories">
-        /// Maximum calories filter (null = no filter).
-        /// </param>
-        /// <exception cref="ArgumentException">
-        /// Thrown when maxPricePerUnit is negative or maxCalories is negative.
-        /// </exception>
         public ProductSearchCriteria(
             ISet<Characteristic> characteristics = null,
             Money maxPricePerUnit = null,
             int? maxCalories = null)
         {
-            // Validate inputs
             if (maxPricePerUnit != null && maxPricePerUnit.Amount < 0)
                 throw new ArgumentException("Max price cannot be negative", nameof(maxPricePerUnit));
-
             if (maxCalories.HasValue && maxCalories.Value < 0)
                 throw new ArgumentException("Max calories cannot be negative", nameof(maxCalories));
 
-            // Defensive copy to ensure immutability
             Characteristics = characteristics != null
                 ? new HashSet<Characteristic>(characteristics)
                 : new HashSet<Characteristic>();
@@ -395,29 +163,18 @@ namespace EarlyBird.Domain
             MaxCalories = maxCalories;
         }
 
-        /// <summary>
-        /// Creates criteria with only characteristic filter.
-        /// </summary>
         public static ProductSearchCriteria ByCharacteristics(params Characteristic[] characteristics)
         {
             return new ProductSearchCriteria(
                 characteristics: new HashSet<Characteristic>(characteristics)
             );
         }
-
-        /// <summary>
-        /// Creates criteria with only price filter.
-        /// </summary>
         public static ProductSearchCriteria ByMaxPrice(Money maxPricePerUnit)
         {
             return new ProductSearchCriteria(
                 maxPricePerUnit: maxPricePerUnit
             );
         }
-
-        /// <summary>
-        /// Creates criteria with only calorie filter.
-        /// </summary>
         public static ProductSearchCriteria ByMaxCalories(int maxCalories)
         {
             return new ProductSearchCriteria(
@@ -425,8 +182,7 @@ namespace EarlyBird.Domain
             );
         }
     }
-}
-```
+}```
 
 **Why ProductSearchCriteria instead of multiple parameters?**
 
@@ -444,13 +200,9 @@ namespace EarlyBird.Domain
 ```csharp
 namespace EarlyBird.Domain.Exceptions
 {
-    /// <summary>
-    /// Thrown when a requested product does not exist in the catalog.
-    /// </summary>
     public class ProductNotFoundException : Exception
     {
         public ProductCode ProductCode { get; }
-
         public ProductNotFoundException(ProductCode productCode)
             : base($"Product with code '{productCode}' not found in catalog")
         {
@@ -479,7 +231,6 @@ namespace EarlyBird.Domain.Exceptions
 ### Example 1: Find Product by Code
 
 ```csharp
-// GOOD - Type-safe, clear intent
 var coffeeCode = new ProductCode("COFFEE");
 try
 {
@@ -491,15 +242,11 @@ catch (ProductNotFoundException ex)
     Console.WriteLine($"Product {ex.ProductCode} not available");
 }
 
-// BAD - Prone to errors (what this interface prevents)
-// Product coffee = productCatalog.FindByCode("coffee"); // ❌ Won't compile (needs ProductCode)
-// Product coffee = productCatalog.FindByCode(null); // ❌ ArgumentNullException (explicit)
 ```
 
 ### Example 2: Search by Characteristics
 
 ```csharp
-// GOOD - Type-safe, no magic strings
 var characteristics = new HashSet<Characteristic> {
     Characteristic.VEGETARIAN,
     Characteristic.LOW_CALORIE
@@ -508,18 +255,12 @@ var characteristics = new HashSet<Characteristic> {
 IReadOnlyCollection<Product> healthyProducts =
     productCatalog.SearchByCharacteristics(characteristics);
 
-// Result is immutable - cannot accidentally modify
-// healthyProducts.Add(someProduct); // ❌ Won't compile (IReadOnlyCollection)
 
-// BAD - What other interfaces might do (what we avoid)
-// List<Product> products = FindByCharacteristics("vegetarian,low-calorie"); // ❌ Magic strings
-// products.Add(hackedProduct); // ❌ Can modify internal state!
 ```
 
 ### Example 3: Complex Search with Multiple Criteria
 
 ```csharp
-// GOOD - Clear, type-safe, extensible
 var criteria = new ProductSearchCriteria {
     Characteristics = new HashSet<Characteristic> {
         Characteristic.VEGETARIAN,
@@ -533,15 +274,11 @@ IReadOnlyCollection<Product> products = productCatalog.Search(criteria);
 
 Console.WriteLine($"Found {products.Count} vegetarian, gluten-free products under €5 and 300 calories");
 
-// BAD - What other interfaces might do (what we avoid)
-// FindProducts("vegetarian", "gluten_free", 5.00, 300); // ❌ Ambiguous parameter order
-// FindProducts(maxPrice: 5.00, maxCalories: 300); // ❌ Easy to mix up parameters
 ```
 
 ### Example 4: Batch Retrieval
 
 ```csharp
-// GOOD - Efficient, clear, handles missing products gracefully
 var orderCodes = new List<ProductCode> {
     new ProductCode("COFFEE"),
     new ProductCode("TOAST"),
@@ -550,44 +287,34 @@ var orderCodes = new List<ProductCode> {
 };
 
 IReadOnlyCollection<Product> products = productCatalog.FindByCodes(orderCodes);
-// Returns 3 products (COFFEE, TOAST, JUICE), silently skips INVALID_CODE
 
-// No exception for missing products - caller decides how to handle
 if (products.Count < orderCodes.Count)
 {
     Console.WriteLine("Warning: Some products not found");
 }
 
-// BAD - What other interfaces might do
-// FindByCodes(codes); // ❌ Throws exception if ANY code invalid (too strict)
-// FindByCodes(codes); // ❌ Returns null if not found (null checks everywhere)
 ```
 
 ### Example 5: Check Existence Before Retrieval
 
 ```csharp
-// GOOD - Explicit existence check, no exception handling needed
 var code = new ProductCode("COFFEE");
 
 if (productCatalog.Exists(code))
 {
     Product product = productCatalog.FindByCode(code);
-    // Use product
 }
 else
 {
     Console.WriteLine($"Product {code} not available");
 }
 
-// Alternative: Let exception bubble up if product MUST exist
 try
 {
     Product product = productCatalog.FindByCode(code);
-    // Use product
 }
 catch (ProductNotFoundException)
 {
-    // Handle unexpected case
 }
 ```
 
@@ -748,14 +475,12 @@ IReadOnlyCollection<Product> Search(ProductSearchCriteria criteria); // ✅ Name
 
 ```csharp
 List<Product> SearchByCharacteristics(string[] chars); // ❌ Returns null if none found
-// Caller: if (products != null) { ... } // Required everywhere!
 ```
 
 **Our Solution:**
 
 ```csharp
 IReadOnlyCollection<Product> SearchByCharacteristics(ISet<Characteristic> characteristics); // ✅ Never null
-// Caller: if (products.Any()) { ... } // No null checks needed
 ```
 
 **Why Better:** No NullReferenceException, consistent behavior.
@@ -768,14 +493,12 @@ IReadOnlyCollection<Product> SearchByCharacteristics(ISet<Characteristic> charac
 
 ```csharp
 List<Product> FindByCodes(List<string> codes); // ❌ Exposes mutable list
-// Caller can: products.Add(hackedProduct); // Mutate internal state!
 ```
 
 **Our Solution:**
 
 ```csharp
 IReadOnlyCollection<Product> FindByCodes(IEnumerable<ProductCode> productCodes); // ✅ Immutable
-// Caller: products.Add(...) // ❌ Won't compile
 ```
 
 **Why Better:** Encapsulation preserved, no accidental mutations.

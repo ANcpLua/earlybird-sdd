@@ -241,7 +241,6 @@ public class RobotStateMachine
         {
             (State.K, Event.A) => State.L,
             (State.L, Event.A) => State.Q,
-            // ... all transitions from model
             _ => throw new InvalidTransitionException()
         };
     }
