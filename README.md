@@ -32,7 +32,7 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ## 📋 Complete Test Flow
 
-### 1. Login
+### 1. Login    
 - Enter `38429730`
 - Verify: "Welcome back, Anna Meier! You've ordered 12 times."
 
@@ -214,7 +214,7 @@ npm run build
 ```bash
 npm install -D gh-pages
 npx gh-pages -d dist
-# Live at: https://ancplua.github.io/EarlybirdNoHuman
+# Live at: https://ancplua.github.io/earlybird-sdd
 ```
 
 ## ✅ Feature Checklist
