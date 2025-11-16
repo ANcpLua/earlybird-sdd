@@ -1,5 +1,7 @@
 # Early Bird Management System (EBMS)
 
+## https://ancplua.github.io/earlybird-sdd
+
 A modern, responsive breakfast ordering application built with vanilla JavaScript, demonstrating hexagonal architecture and domain-driven design principles.
 
 ## 🚀 Features
