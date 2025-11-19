@@ -31,13 +31,13 @@ The `Product` concept is the core of the catalog. It can be a `SimpleProduct` or
 **Example Data (`src/data/products.js`):**
 
 ```javascript
-{ 
+const exampleProduct = { 
   id: 1, 
   name: "Croissant + Coffee", 
   type: "prepackaged", 
   calories: 420, 
   price: 5.90 
-}
+};
 ```
 
 ### 1.2 Customer (Aggregate Root)
